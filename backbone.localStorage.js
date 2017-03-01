@@ -111,6 +111,14 @@ extend(Backbone.LocalStorage.prototype, {
 
   // Return the array of all models currently in storage.
   findAll: function() {
+
+    // TODO: Fix the updating of this.records on the right moment
+    // At the moment this fixes it but its not idea to update the this.records
+    // every time you request the items.
+    var store = this.localStorage().getItem(this.name);
+    this.records = (store && store.split(",")) || [];
+    // END OF FIX
+
     var result = [];
     for (var i = 0, id, data; i < this.records.length; i++) {
       id = this.records[i];
